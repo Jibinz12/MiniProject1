@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prospera - Dashboard</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="dashboard-header">
         <div class="container">
-            <h1>Prospera Dashboard</h1>
-            <nav>
+            <!-- Logo/Title -->
+            <h1>Dashboard</h1>
+
+            <!-- Hamburger Icon -->
+            <button class="nav-toggle" aria-label="Toggle Navigation">
+                <span class="hamburger"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <nav class="nav">
                 <ul>
                     <li><a href="#daily-expenses">Daily Expenses</a></li>
                     <li><a href="#analytics">Analytics</a></li>
@@ -26,27 +34,27 @@
             <div class="expenses-categories">
                 <div class="category">
                     <h3>Academics</h3>
-                    <p>$200</p>
+                    <p>Rs.200</p>
                 </div>
                 <div class="category">
                     <h3>Food & Beverages</h3>
-                    <p>$150</p>
+                    <p>Rs.150</p>
                 </div>
                 <div class="category">
                     <h3>Traveling</h3>
-                    <p>$80</p>
+                    <p>Rs.80</p>
                 </div>
                 <div class="category">
                     <h3>Rent & Bills</h3>
-                    <p>$500</p>
+                    <p>Rs.500</p>
                 </div>
                 <div class="category">
                     <h3>Licenses & Subscriptions</h3>
-                    <p>$30</p>
+                    <p>Rs.30</p>
                 </div>
                 <div class="category">
                     <h3>Others</h3>
-                    <p>$60</p>
+                    <p>Rs.60</p>
                 </div>
             </div>
         </div>
@@ -60,5 +68,14 @@
             </div>
         </div>
     </section>
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav');
+
+        navToggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
+
