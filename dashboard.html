@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
     <header class="dashboard-header">
         <div class="container">
-            <!-- Logo/Title -->
             <h1>Dashboard</h1>
-
-            <!-- Hamburger Icon -->
-            <button class="nav-toggle" aria-label="Toggle Navigation">
-                <span class="hamburger"></span>
-            </button>
-
-            <!-- Navigation Menu -->
             <nav class="nav">
                 <ul>
-                    <li><a href="#daily-expenses">Daily Expenses</a></li>
-                    <li><a href="#analytics">Analytics</a></li>
-                    <li><a href="index.html">Logout</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="analytics.html">Analytics</a></li>
+                    <li><a href="chat.html">Voxa(Chatbot)</a></li>
                 </ul>
             </nav>
         </div>
@@ -30,52 +24,61 @@
 
     <section id="daily-expenses" class="dashboard-section">
         <div class="container">
-            <h2>Daily Expenses</h2>
+            <!-- Main Button for Expenses & Analytics -->
+            <div class="main-button">
+                <button class="check-expenses-btn" onclick="window.location.href='analytics.html';">
+                    <img src="images/main.png" alt="Check Expenses Icon">
+                    Check your daily expenses and analytics
+                </button>
+            </div>
+
+            <!-- Expense Categories -->
             <div class="expenses-categories">
                 <div class="category">
-                    <h3>Academics</h3>
-                    <p>Rs.200</p>
+                    <button class="expense-btn" onclick="window.location.href='academics.html';">
+                        <img src="images/study.png" alt="Academics Icon">
+                        <h3>Academics</h3>
+                        <p>Rs. 200</p>
+                    </button>
                 </div>
                 <div class="category">
-                    <h3>Food & Beverages</h3>
-                    <p>Rs.150</p>
+                    <button class="expense-btn" onclick="window.location.href='food.html';">
+                        <img src="images/food.png" alt="Food and Beverages Icon">
+                        <h3>Food & Beverages</h3>
+                        <p>Rs. 150</p>
+                    </button>
                 </div>
                 <div class="category">
-                    <h3>Traveling</h3>
-                    <p>Rs.80</p>
+                    <button class="expense-btn" onclick="window.location.href='travel.html';">
+                        <img src="images/travel.png" alt="Travel Icon">
+                        <h3>Traveling</h3>
+                        <p>Rs. 80</p>
+                    </button>
                 </div>
                 <div class="category">
-                    <h3>Rent & Bills</h3>
-                    <p>Rs.500</p>
+                    <button class="expense-btn" onclick="window.location.href='rent.html';">
+                        <img src="images/rent.png" alt="Rent and Bills Icon">
+                        <h3>Rent & Bills</h3>
+                        <p>Rs. 500</p>
+                    </button>
                 </div>
                 <div class="category">
-                    <h3>Licenses & Subscriptions</h3>
-                    <p>Rs.30</p>
+                    <button class="expense-btn" onclick="window.location.href='subscriptions.html';">
+                        <img src="images/subs.png" alt="Licenses and Subscriptions Icon">
+                        <h3>Licenses & Subscriptions</h3>
+                        <p>Rs. 30</p>
+                    </button>
                 </div>
                 <div class="category">
-                    <h3>Others</h3>
-                    <p>Rs.60</p>
+                    <button class="expense-btn" onclick="window.location.href='others.html';">
+                        <img src="images/others.png" alt="Other Icon">
+                        <h3>Others</h3>
+                        <p>Rs. 60</p>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="analytics" class="dashboard-section">
-        <div class="container">
-            <h2>Analytics</h2>
-            <div class="chart-placeholder">
-                <p>Analytics charts will be displayed here.</p>
-            </div>
-        </div>
-    </section>
-    <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const nav = document.querySelector('.nav');
-
-        navToggle.addEventListener('click', () => {
-            nav.classList.toggle('show');
-        });
-    </script>
 </body>
-</html>
 
+</html>
