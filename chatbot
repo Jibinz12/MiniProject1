@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Voxa - Financial Chatbot</title>
+    <style>
+        body {
+            font-family: 'Righteous', sans-serif;
+            background-color: #1cd955;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .chat-box {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        .chat-box p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .user {
+            text-align: right;
+            color: #007bff;
+        }
+        .bot {
+            text-align: left;
+            color: #555;
+        }
+        .input-box {
+            display: flex;
+        }
+        .input-box input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .input-box button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <h2>Voxa - Financial Chatbot</h2>
+        <div id="chat-box" class="chat-box">
+            <p class="bot">Hello! I'm Voxa, your financial assistant. How can I help you today?</p>
+        </div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') return;
+
+        
+            appendMessage(userInput, 'user');
+            document.getElementById('user-input').value = '';
+
+            
+            fetch('http://localhost:5000/chat', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                
+                appendMessage(data.reply, 'bot');
+            })
+            .catch(error => {
+                appendMessage('Error: Unable to get response', 'bot');
+            });
+        }
+
+        function appendMessage(message, sender) {
+            const chatBox = document.getElementById('chat-box');
+            const messageParagraph = document.createElement('p');
+            messageParagraph.classList.add(sender);
+            messageParagraph.textContent = message;
+            chatBox.appendChild(messageParagraph);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
