@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prospera - Financial Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1cd955;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        .input-section label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .input-section input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .calculate-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .calculate-btn:hover {
+            background-color: #0056b3;
+        }
+        .results-section {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .result-item {
+            margin-bottom: 10px;
+        }
+        .result-item span {
+            font-weight: bold;
+        }
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Prospera - Financial Analytics (in Rupees)</h2>
+
+        <div class="input-section">
+            <label for="income">Monthly Income (₹):</label>
+            <input type="number" id="income" placeholder="Enter your monthly income in Rupees">
+
+            <label for="expenses">Monthly Expenses (₹):</label>
+            <input type="number" id="expenses" placeholder="Enter your monthly expenses in Rupees">
+
+            <label for="savings-goal">Savings Goal (% of income):</label>
+            <input type="number" id="savings-goal" placeholder="Enter your savings goal percentage">
+        </div>
+
+        <button class="calculate-btn" onclick="calculateFinances()">Calculate Finances</button>
+
+        <div id="results" class="results-section" style="display: none;">
+            <div class="result-item">Total Savings Goal: <span id="total-savings-goal"></span></div>
+            <div class="result-item">Remaining After Expenses: <span id="remaining-after-expenses"></span></div>
+            <div class="result-item">Savings Surplus/Deficit: <span id="savings-surplus"></span></div>
+        </div>
+    </div>
+
+    <canvas id="financialChart" width="500" height="500"></canvas>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let chart;
+
+        function calculateFinances() {
+            // Get input values
+            const income = parseFloat(document.getElementById('income').value);
+            const expenses = parseFloat(document.getElementById('expenses').value);
+            const savingsGoalPercent = parseFloat(document.getElementById('savings-goal').value);
+
+            // Validate inputs
+            if (isNaN(income) || isNaN(expenses) || isNaN(savingsGoalPercent)) {
+                alert('Please enter valid numeric values for income, expenses, and savings goal.');
+                return;
+            }
+
+            // Calculations
+            const totalSavingsGoal = (savingsGoalPercent / 100) * income;
+            const remainingAfterExpenses = income - expenses;
+            const savingsSurplus = remainingAfterExpenses - totalSavingsGoal;
+
+            // Display results in INR (₹)
+            document.getElementById('total-savings-goal').textContent = `₹${totalSavingsGoal.toFixed(2)}`;
+            document.getElementById('remaining-after-expenses').textContent = `₹${remainingAfterExpenses.toFixed(2)}`;
+            document.getElementById('savings-surplus').textContent = savingsSurplus >= 0 
+                ? `₹${savingsSurplus.toFixed(2)} (Surplus)`
+                : `₹${Math.abs(savingsSurplus).toFixed(2)} (Deficit)`;
+
+            document.getElementById('results').style.display = 'block';
+
+            // Update the chart
+            updateChart(expenses, totalSavingsGoal);
+        }
+
+        function updateChart(expenses, savings) {
+            const data = {
+                labels: ['Expenses', 'Savings'],
+                datasets: [{
+                    label: 'Financial Overview',
+                    data: [expenses, savings],
+                    backgroundColor: ['#ff6384', '#36a2eb'],
+                    hoverOffset: 4
+                }]
+            };
+
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            };
+
+            if (chart) {
+                chart.destroy();  // If chart exists, destroy it to avoid overlapping
+            }
+            chart = new Chart(
+                document.getElementById('financialChart'),
+                config
+            );
+        }
+    </script>
+
+</body>
+</html>
