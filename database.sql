@@ -3,13 +3,13 @@ USE prospera;
 
 CREATE TABLE _Login (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    username VARCHAR(50) NOT NULL UNIQUE
+    name VARCHAR(30) NOT NULL,
+    email VARCHAR(20) NOT NULL UNIQUE,
+    username VARCHAR(20) NOT NULL UNIQUE
 );
 DELIMITER $$
 
-CREATE PROCEDURE create_user_expense_tables(IN user_name VARCHAR(50))
+CREATE PROCEDURE create_user_expense_tables(IN user_name VARCHAR(20))
 BEGIN
     -- Main expenses table
     SET @expenses_table = CONCAT('CREATE TABLE ', user_name, '_expenses (',
