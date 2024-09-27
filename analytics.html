@@ -17,34 +17,41 @@
             height: 100vh;
             flex-direction: column;
         }
+
         .container {
-            width: 600px;
+            width: 90%;
+            max-width: 600px; /* Maximum width for larger screens */
             background-color: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
+
         h2 {
             text-align: center;
             color: #333;
         }
+
         .input-section {
             margin-bottom: 20px;
         }
+
         .input-section label {
             display: block;
             font-size: 16px;
             margin-bottom: 5px;
         }
+
         .input-section input {
-            width: 100%;
+            width: 90%; /* Full width for better usability */
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
             margin-bottom: 10px;
         }
+
         .calculate-btn {
             width: 100%;
             padding: 10px;
@@ -55,9 +62,11 @@
             cursor: pointer;
             font-size: 18px;
         }
+
         .calculate-btn:hover {
             background-color: #0056b3;
         }
+
         .results-section {
             margin-top: 20px;
             padding: 10px;
@@ -65,14 +74,47 @@
             border-radius: 5px;
             font-size: 18px;
         }
+
         .result-item {
             margin-bottom: 10px;
         }
+
         .result-item span {
             font-weight: bold;
         }
+
         canvas {
-            max-width: 100%;
+            max-width: 90%; /* Ensure canvas is responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.5rem; /* Adjust heading size for small screens */
+            }
+
+            .calculate-btn {
+                font-size: 16px; /* Smaller button font for mobile */
+            }
+
+            .results-section {
+                font-size: 16px; /* Smaller results font for mobile */
+            }
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.8rem; /* Adjust heading size for tablets */
+            }
+
+            .calculate-btn {
+                font-size: 17px; /* Slightly smaller button font */
+            }
+
+            .results-section {
+                font-size: 17px; /* Adjust results font for tablets */
+            }
         }
     </style>
 </head>
@@ -101,30 +143,30 @@
         </div>
     </div>
 
-    <canvas id="financialChart"></canvas>
+    <canvas id="financialChart" width="500" height="500"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let chart;
 
         function calculateFinances() {
-           
+            // Get input values
             const income = parseFloat(document.getElementById('income').value);
             const expenses = parseFloat(document.getElementById('expenses').value);
             const savingsGoalPercent = parseFloat(document.getElementById('savings-goal').value);
 
-          
+            // Validate inputs
             if (isNaN(income) || isNaN(expenses) || isNaN(savingsGoalPercent)) {
                 alert('Please enter valid numeric values for income, expenses, and savings goal.');
                 return;
             }
 
-          
+            // Calculations
             const totalSavingsGoal = (savingsGoalPercent / 100) * income;
             const remainingAfterExpenses = income - expenses;
             const savingsSurplus = remainingAfterExpenses - totalSavingsGoal;
 
-           
+            // Display results in INR (₹)
             document.getElementById('total-savings-goal').textContent = `₹${totalSavingsGoal.toFixed(2)}`;
             document.getElementById('remaining-after-expenses').textContent = `₹${remainingAfterExpenses.toFixed(2)}`;
             document.getElementById('savings-surplus').textContent = savingsSurplus >= 0 
@@ -133,7 +175,7 @@
 
             document.getElementById('results').style.display = 'block';
 
-   
+            // Update the chart
             updateChart(expenses, totalSavingsGoal);
         }
 
@@ -162,7 +204,7 @@
             };
 
             if (chart) {
-                chart.destroy();
+                chart.destroy();  // If chart exists, destroy it to avoid overlapping
             }
             chart = new Chart(
                 document.getElementById('financialChart'),
