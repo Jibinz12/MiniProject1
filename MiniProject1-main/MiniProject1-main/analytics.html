@@ -17,41 +17,34 @@
             height: 100vh;
             flex-direction: column;
         }
-
         .container {
-            width: 90%;
-            max-width: 600px; /* Maximum width for larger screens */
+            width: 600px;
             background-color: white;
             padding: 20px;
-            border-radius: 20px;
+            border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
         h2 {
             text-align: center;
             color: #333;
         }
-
         .input-section {
             margin-bottom: 20px;
         }
-
         .input-section label {
             display: block;
             font-size: 16px;
             margin-bottom: 5px;
         }
-
         .input-section input {
-            width: 90%; /* Full width for better usability */
+            width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
             margin-bottom: 10px;
         }
-
         .calculate-btn {
             width: 100%;
             padding: 10px;
@@ -62,11 +55,9 @@
             cursor: pointer;
             font-size: 18px;
         }
-
         .calculate-btn:hover {
             background-color: #0056b3;
         }
-
         .results-section {
             margin-top: 20px;
             padding: 10px;
@@ -74,47 +65,14 @@
             border-radius: 5px;
             font-size: 18px;
         }
-
         .result-item {
             margin-bottom: 10px;
         }
-
         .result-item span {
             font-weight: bold;
         }
-
         canvas {
-            max-width: 90%; /* Ensure canvas is responsive */
-            height: auto; /* Maintain aspect ratio */
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 480px) {
-            h2 {
-                font-size: 1.5rem; /* Adjust heading size for small screens */
-            }
-
-            .calculate-btn {
-                font-size: 16px; /* Smaller button font for mobile */
-            }
-
-            .results-section {
-                font-size: 16px; /* Smaller results font for mobile */
-            }
-        }
-
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 1.8rem; /* Adjust heading size for tablets */
-            }
-
-            .calculate-btn {
-                font-size: 17px; /* Slightly smaller button font */
-            }
-
-            .results-section {
-                font-size: 17px; /* Adjust results font for tablets */
-            }
+            max-width: 100%;
         }
     </style>
 </head>
@@ -143,7 +101,7 @@
         </div>
     </div>
 
-    <canvas id="financialChart" width="500" height="500"></canvas>
+    <canvas id="financialChart"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
